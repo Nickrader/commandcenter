@@ -39,11 +39,10 @@ By default when you run CommandCenter.exe, it will play as Random race vs. a Ran
 
 If the bot crashes or does other nasty things, please bear with me while I make it more stable :)
 
-# Developer Install
+# Developer Install / Compile Instructions (Windows)
 * Download and install [Visual Studio 2017 or newer](https://www.visualstudio.com/downloads/)
 * Install [CMake](https://cmake.org/download/) and do
 
-# Developer Install / Compile Instructions (Windows)
 ```bat
 :: Get the project.
 $ git clone --recursive https://github.com/cpp-sc2/commandcenter.git
@@ -61,11 +60,11 @@ $ cmake ../ -G "Visual Studio 15 2017 Win64"
 
 :: Build the project using Visual Studio.
 :: The binary "CommandCenter_API.exe" should appear in the build/bin/ directory
-$ start CommanCenter.sln
+$ start CommandCenter.sln
 
 :: Launch the bot with the specified path to a SC2 map.
 :: Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the .exe to run properly
-$ bin\Debug\CommanCenter.exe Ladder2019Season3/AcropolisLE.SC2Map
+$ bin\Debug\CommandCenter.exe Ladder2019Season3/AcropolisLE.SC2Map
 ```
 
 # Developer Install / Compile Instructions (Linux and OS X)
@@ -86,7 +85,7 @@ $ VERBOSE=1 cmake --build . --parallel
 
 # Launch the bot with the specified path to a SC2 map.
 # Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the .exe to run properly
-$ bin/Debug/CommanCenter Ladder2019Season3/AcropolisLE.SC2Map
+$ bin/Debug/CommandCenter Ladder2019Season3/AcropolisLE.SC2Map
 ```
 
 # Bot Development
