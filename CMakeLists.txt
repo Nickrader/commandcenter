@@ -14,5 +14,8 @@ set(BUILD_API_EXAMPLES OFF CACHE INTERNAL "" FORCE)
 # Disable building of tests in the sc2api submodule.
 set(BUILD_API_TESTS OFF CACHE INTERNAL "" FORCE)
 
+# Dont build sc2renderer in the sc2api submodule.
+set(BUILD_SC2_RENDERER OFF CACHE INTERNAL "" FORCE)
+
 add_subdirectory("cpp-sc2")
 add_subdirectory("src")
