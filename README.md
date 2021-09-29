@@ -45,7 +45,7 @@ If the bot crashes or does other nasty things, please bear with me while I make 
 
 ```bat
 :: Get the project.
-$ git clone --recursive https://github.com/cpp-sc2/commandcenter.git
+$ git clone --recursive git@github.com:cpp-sc2/commandcenter.git
 $ cd commandcenter
 
 :: Create build directory.
@@ -73,6 +73,9 @@ $ bin\Debug\CommandCenter.exe Ladder2019Season3/AcropolisLE.SC2Map
 * Install [CMake](https://cmake.org/download/) and do
 
 ```bash
+# Get the project.
+$ git clone --recursive git@github.com:cpp-sc2/commandcenter.git && cd commandcenter
+
 # Create build directory.
 $ mkdir build && cd build
 
@@ -84,7 +87,7 @@ $ cmake ../
 $ VERBOSE=1 cmake --build . --parallel
 
 # Launch the bot with the specified path to a SC2 map.
-# Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the .exe to run properly
+# Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the executable to run properly
 $ bin/Debug/CommandCenter Ladder2019Season3/AcropolisLE.SC2Map
 ```
 
