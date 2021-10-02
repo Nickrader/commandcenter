@@ -2,6 +2,8 @@
 #include "CCBot.h"
 #include "Util.h"
 
+#include <limits>
+
 ScoutManager::ScoutManager(CCBot & bot)
     : m_bot             (bot)
     , m_scoutUnit       ()

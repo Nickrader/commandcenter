@@ -3,6 +3,7 @@
 #include "CCBot.h"
 #include <sstream>
 #include <iostream>
+#include <limits>
 
 const int NearBaseLocationTileDistance = 20;
 

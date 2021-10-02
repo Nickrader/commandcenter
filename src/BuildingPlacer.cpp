@@ -4,6 +4,8 @@
 #include "Building.h"
 #include "Util.h"
 
+#include <limits>
+
 BuildingPlacer::BuildingPlacer(CCBot & bot)
     : m_bot(bot)
 {

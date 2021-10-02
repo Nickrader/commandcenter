@@ -2,6 +2,8 @@
 #include "Util.h"
 #include "CCBot.h"
 
+#include <limits>
+
 const size_t IdlePriority = 0;
 const size_t AttackPriority = 1;
 const size_t BaseDefensePriority = 2;

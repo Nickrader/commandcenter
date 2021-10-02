@@ -2,6 +2,8 @@
 #include "Util.h"
 #include "CCBot.h"
 
+#include <limits>
+
 ProductionManager::ProductionManager(CCBot & bot)
     : m_bot             (bot)
     , m_buildingManager (bot)

@@ -2,6 +2,8 @@
 #include "Util.h"
 #include "CCBot.h"
 
+#include <limits>
+
 MeleeManager::MeleeManager(CCBot & bot)
     : MicroManager(bot)
 {

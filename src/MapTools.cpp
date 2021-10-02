@@ -6,6 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include <array>
+#include <limits>
 
 #ifdef SC2API
 namespace {

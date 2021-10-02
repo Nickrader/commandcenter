@@ -3,6 +3,8 @@
 #include "Util.h"
 #include "Building.h"
 
+#include <limits>
+
 WorkerManager::WorkerManager(CCBot & bot)
     : m_bot         (bot)
     , m_workerData  (bot)
