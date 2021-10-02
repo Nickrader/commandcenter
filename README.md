@@ -1,5 +1,7 @@
 # CommandCenter: AI Bot for Broodwar and Starcraft II
 
+[![Build](https://github.com/cpp-sc2/commandcenter/actions/workflows/ci.yml/badge.svg)](https://github.com/cpp-sc2/commandcenter/actions/workflows/ci.yml)
+
 CommandCenter is a StarCraft AI bot that can play both StarCraft: Broodwar and StarCraft 2. This fork is focused on the StarCraft 2 part of the bot.
 
 ![CommandCenter Screenshot](https://i.imgur.com/SbTymsO.jpg)
