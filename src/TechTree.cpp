@@ -156,9 +156,9 @@ void TechTree::initUnitTypeData()
     for (auto & kv : m_unitTypeData)
     {
         if (!kv.first.isValid()) { continue; }
-        
+
         auto & data = m_bot.Observation()->GetUnitTypeData()[kv.first.getAPIUnitType()];
-                
+
         kv.second.mineralCost = data.mineral_cost;
         kv.second.gasCost     = data.vespene_cost;
     }
@@ -246,7 +246,7 @@ void TechTree::initUpgradeData()
     m_upgradeData[sc2::UPGRADE_ID::GLIALRECONSTITUTION] =               { sc2::Race::Zerg, 100, 100, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_GLIALREGENERATION, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_ROACHWARREN, m_bot) }, { UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {} };
     m_upgradeData[sc2::UPGRADE_ID::INFESTORENERGYUPGRADE] =             { sc2::Race::Zerg, 150, 150, 0, 1280, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_PATHOGENGLANDS, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_INFESTATIONPIT, m_bot) }, {}, {} };
     m_upgradeData[sc2::UPGRADE_ID::NEURALPARASITE] =                    { sc2::Race::Zerg, 150, 150, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_NEURALPARASITE, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_INFESTATIONPIT, m_bot) }, {}, {} };
-    m_upgradeData[sc2::UPGRADE_ID::OVERLORDSPEED] =                     { sc2::Race::Zerg, 100, 100, 0,  960, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_PNEUMATIZEDCARAPACE, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_HATCHERY, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {}, {} };                       
+    m_upgradeData[sc2::UPGRADE_ID::OVERLORDSPEED] =                     { sc2::Race::Zerg, 100, 100, 0,  960, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_PNEUMATIZEDCARAPACE, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_HATCHERY, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {}, {} };
     m_upgradeData[sc2::UPGRADE_ID::TUNNELINGCLAWS] =                    { sc2::Race::Zerg, 150, 150, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_TUNNELINGCLAWS, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_ROACHWARREN, m_bot) }, { UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {} };
     m_upgradeData[sc2::UPGRADE_ID::ZERGFLYERARMORSLEVEL1] =             { sc2::Race::Zerg, 150, 150, 0, 2560, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_ZERGFLYERARMORLEVEL1, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_SPIRE, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_GREATERSPIRE, m_bot) }, {}, {} };
     m_upgradeData[sc2::UPGRADE_ID::ZERGFLYERARMORSLEVEL2] =             { sc2::Race::Zerg, 225, 225, 0, 3040, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_ZERGFLYERARMORLEVEL2, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_SPIRE, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_GREATERSPIRE, m_bot) }, { UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, { sc2::UPGRADE_ID::ZERGFLYERARMORSLEVEL1 } };
@@ -342,13 +342,13 @@ const TypeData & TechTree::getData(const MetaType & type) const
     {
         return getData(type.getUpgrade());
     }
-    
+
     BOT_ASSERT(false, "Can't getData this type: %s", type.getName().c_str());
 
     return m_unitTypeData.begin()->second;
 }
 
-void TechTree::outputJSON(const std::string & filename) const
+void TechTree::outputJSON(const std::string & /* filename */) const
 {
 #ifdef SC2APIXXX
     std::ofstream out(filename);
@@ -367,7 +367,7 @@ void TechTree::outputJSON(const std::string & filename) const
         if (name.find("Lowered") != std::string::npos) { continue; }
 
         auto & data = kv.second;
-               
+
         out << "    [";
         out << q << name << qcs;
         out << q << Util::GetStringFromRace(data.race) << qcs;
@@ -383,16 +383,16 @@ void TechTree::outputJSON(const std::string & filename) const
         out << "], ";
 
         out << "[";
-        for (size_t i(0); i < data.requiredUnits.size(); ++i) 
-        { 
+        for (size_t i(0); i < data.requiredUnits.size(); ++i)
+        {
             out << q << m_bot.Observation()->GetUnitTypeData()[data.requiredUnits[i].getAPIUnitType()].name << q;
             if (i < data.requiredUnits.size() - 1) { out << ", "; }
         }
         out << "], ";
 
         out << "[";
-        for (size_t i(0); i < data.requiredUpgrades.size(); ++i) 
-        { 
+        for (size_t i(0); i < data.requiredUpgrades.size(); ++i)
+        {
             out << q << m_bot.Observation()->GetUpgradeData()[data.requiredUpgrades[i]].name << q;
             if (i < data.requiredUpgrades.size() - 1) { out << ", "; }
         }

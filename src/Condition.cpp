@@ -3,11 +3,11 @@
 
 Condition::Condition()
     : m_bot     (nullptr)
+    , m_type    (ConditionTypes::Invalid)
+    , m_player  (0)
     , m_lhs     (nullptr)
     , m_rhs     (nullptr)
-    , m_type    (ConditionTypes::Invalid)
     , m_op      (ConditionOperators::Invalid)
-    , m_player  (0)
 {
 
 }
@@ -21,7 +21,7 @@ Condition::Condition(const json & j, CCBot & bot)
     BOT_ASSERT(j.is_array(), "Condition must be an array");
 
     // this is a condition with 2 sub-conditions and an operator
-    if (j.size() == 3) 
+    if (j.size() == 3)
     {
         BOT_ASSERT(j[1].is_string(), "Condition operator must be a string");
 
@@ -92,7 +92,7 @@ int Condition::intEval() const
 
         BOT_ASSERT(false, "Unknown UnaryString value:", m_strValue.c_str());
     }
-    
+
     BOT_ASSERT(false, "Can't int evaluate this Condition");
     return 0;
 }
@@ -104,7 +104,7 @@ bool Condition::eval() const
         switch (m_op)
         {
             case ConditionOperators::AND:    { return m_lhs->eval() && m_rhs->eval(); }
-            case ConditionOperators::OR:     { return m_lhs->eval() || m_rhs->eval(); }    
+            case ConditionOperators::OR:     { return m_lhs->eval() || m_rhs->eval(); }
         }
     }
     else if (m_type == ConditionTypes::BinaryComp)

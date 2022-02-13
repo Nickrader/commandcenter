@@ -6,14 +6,13 @@ CCBot::CCBot()
     , m_bases(*this)
     , m_unitInfo(*this)
     , m_workers(*this)
-    , m_gameCommander(*this)
     , m_strategy(*this)
     , m_techTree(*this)
+    , m_gameCommander(*this)
 {
-    
 }
 
-void CCBot::OnGameStart() 
+void CCBot::OnGameStart()
 {
     m_config.readConfigFile();
 
@@ -33,7 +32,7 @@ void CCBot::OnGameStart()
     // set the BWAPI game flags
     BWAPI::Broodwar->setLocalSpeed(m_config.SetLocalSpeed);
     BWAPI::Broodwar->setFrameSkip(m_config.SetFrameSkip);
-    
+
     if (m_config.CompleteMapInformation)
     {
         BWAPI::Broodwar->enableFlag(BWAPI::Flag::CompleteMapInformation);
@@ -44,7 +43,7 @@ void CCBot::OnGameStart()
         BWAPI::Broodwar->enableFlag(BWAPI::Flag::UserInput);
     }
 #endif
-    
+
     setUnits();
     m_techTree.onStart();
     m_strategy.onStart();
@@ -239,8 +238,7 @@ const std::vector<CCPosition> & CCBot::GetStartLocations() const
 }
 
 #ifdef SC2API
-void CCBot::OnError(const std::vector<sc2::ClientError> & client_errors, const std::vector<std::string> & protocol_errors)
+void CCBot::OnError(const std::vector<sc2::ClientError> & /* client_errors */, const std::vector<std::string> & /* protocol_errors */)
 {
-    
 }
 #endif

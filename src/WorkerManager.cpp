@@ -72,8 +72,7 @@ void WorkerManager::handleIdleWorkers()
     {
         if (!worker.isValid()) { continue; }
 
-        bool isIdle = worker.isIdle();
-        if (worker.isIdle() && 
+        if (worker.isIdle() &&
             (m_workerData.getWorkerJob(worker) != WorkerJobs::Build) && 
             (m_workerData.getWorkerJob(worker) != WorkerJobs::Move) &&
             (m_workerData.getWorkerJob(worker) != WorkerJobs::Scout)) 
@@ -238,8 +237,6 @@ void WorkerManager::drawWorkerInformation()
 
     std::stringstream ss;
     ss << "Workers: " << m_workerData.getWorkers().size() << "\n";
-
-    int yspace = 0;
 
     for (auto & worker : m_workerData.getWorkers())
     {

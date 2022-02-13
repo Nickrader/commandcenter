@@ -27,10 +27,7 @@ class StrategyManager
 {
     CCBot & m_bot;
 
-    CCRace                          m_selfRace;
-    CCRace                          m_enemyRace;
     std::map<std::string, Strategy> m_strategies;
-    int                             m_totalGamesPlayed;
     const BuildOrder                m_emptyBuildOrder;
 
     bool  shouldExpandNow() const;

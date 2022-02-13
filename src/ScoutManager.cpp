@@ -7,9 +7,8 @@
 ScoutManager::ScoutManager(CCBot & bot)
     : m_bot             (bot)
     , m_scoutUnit       ()
-    , m_numScouts       (0)
-    , m_scoutUnderAttack(false)
     , m_scoutStatus     ("None")
+    , m_scoutUnderAttack(false)
     , m_previousScoutHP (0)
 {
 }
@@ -60,12 +59,9 @@ void ScoutManager::moveScouts()
     // get the enemy base location, if we have one
     const BaseLocation * enemyBaseLocation = m_bot.Bases().getPlayerStartingBaseLocation(Players::Enemy);
 
-    int scoutDistanceThreshold = 20;
-
     // if we know where the enemy region is and where our scout is
     if (enemyBaseLocation)
     {
-        int scoutDistanceToEnemy = m_bot.Map().getGroundDistance(workerScout.getPosition(), enemyBaseLocation->getPosition());
         bool scoutInRangeOfenemy = enemyBaseLocation->containsPosition(workerScout.getPosition());
 
         // we only care if the scout is under attack within the enemy region
@@ -146,7 +142,7 @@ void ScoutManager::moveScouts()
     m_previousScoutHP = scoutHP;
 }
 
-Unit ScoutManager::closestEnemyWorkerTo(const CCPosition & pos) const
+Unit ScoutManager::closestEnemyWorkerTo(const CCPosition & /* pos */) const
 {
     if (!m_scoutUnit.isValid()) { return Unit(); }
 
@@ -170,6 +166,7 @@ Unit ScoutManager::closestEnemyWorkerTo(const CCPosition & pos) const
 
     return enemyWorker;
 }
+
 bool ScoutManager::enemyWorkerInRadiusOf(const CCPosition & pos) const
 {
     for (auto & unit : m_bot.UnitInfo().getUnits(Players::Enemy))

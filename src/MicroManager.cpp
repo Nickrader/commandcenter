@@ -142,7 +142,7 @@ void MicroManager::regroup(const CCPosition & regroupPosition) const
     }
 }
 
-void MicroManager::trainSubUnits(const Unit & unit) const
+void MicroManager::trainSubUnits(const Unit & /* unit */) const
 {
     // TODO: something here
 }

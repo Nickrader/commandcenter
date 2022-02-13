@@ -37,7 +37,7 @@ void GameCommander::drawDebugInterface()
     drawGameInformation(4, 1);
 }
 
-void GameCommander::drawGameInformation(int x, int y)
+void GameCommander::drawGameInformation(int /* x */, int /* y */)
 {
     std::stringstream ss;
     ss << "Players: " << "\n";
@@ -117,12 +117,12 @@ void GameCommander::setCombatUnits()
     }
 }
 
-void GameCommander::onUnitCreate(const Unit & unit)
+void GameCommander::onUnitCreate(const Unit & /* unit */)
 {
 
 }
 
-void GameCommander::onUnitDestroy(const Unit & unit)
+void GameCommander::onUnitDestroy(const Unit & /* unit */)
 {
     //_productionManager.onUnitDestroy(unit);
 }

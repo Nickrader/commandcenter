@@ -65,7 +65,7 @@ void UnitData::removeBadUnits()
     }
 }
 
-bool UnitData::badUnitInfo(const UnitInfo & ui) const
+bool UnitData::badUnitInfo(const UnitInfo & /* ui */) const
 {
     return false;
 }

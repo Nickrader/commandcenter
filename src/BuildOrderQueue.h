@@ -17,7 +17,6 @@ struct BuildOrderItem
 
 class BuildOrderQueue
 {
-    CCBot & m_bot;
     std::deque<BuildOrderItem> m_queue;
 
     int m_lowestPriority;
@@ -27,7 +26,7 @@ class BuildOrderQueue
 
 public:
 
-    BuildOrderQueue(CCBot & bot);
+    BuildOrderQueue();
 
     void clearAll();											// clears the entire build order queue
     void skipItem();											// increments skippedItems

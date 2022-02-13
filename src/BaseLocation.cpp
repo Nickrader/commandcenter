@@ -10,11 +10,11 @@ const int NearBaseLocationTileDistance = 20;
 BaseLocation::BaseLocation(CCBot & bot, int baseID, const std::vector<Unit> & resources)
     : m_bot(bot)
     , m_baseID               (baseID)
-    , m_isStartLocation      (false)
     , m_left                 (std::numeric_limits<CCPositionType>::max())
     , m_right                (std::numeric_limits<CCPositionType>::lowest())
     , m_top                  (std::numeric_limits<CCPositionType>::lowest())
     , m_bottom               (std::numeric_limits<CCPositionType>::max())
+    , m_isStartLocation      (false)
 {
     m_isPlayerStartLocation[0] = false;
     m_isPlayerStartLocation[1] = false;
@@ -57,8 +57,6 @@ BaseLocation::BaseLocation(CCBot & bot, int baseID, const std::vector<Unit> & re
     }
 
     // calculate the center of the resources
-    size_t numResources = m_minerals.size() + m_geysers.size();
-
     m_centerOfResources = CCPosition(m_left + (m_right-m_left)/2, m_top + (m_bottom-m_top)/2);
 
     // compute this BaseLocation's DistanceMap, which will compute the ground distance
@@ -74,7 +72,7 @@ BaseLocation::BaseLocation(CCBot & bot, int baseID, const std::vector<Unit> & re
             m_depotPosition = Util::GetTilePosition(pos);
         }
     }
-    
+
     // if this base location position is near our own resource depot, it's our start location
     for (auto & unit : m_bot.GetUnits())
     {
@@ -86,7 +84,7 @@ BaseLocation::BaseLocation(CCBot & bot, int baseID, const std::vector<Unit> & re
             break;
         }
     }
-    
+
     // if it's not a start location, we need to calculate the depot position
     if (!isStartLocation())
     {
@@ -98,7 +96,7 @@ BaseLocation::BaseLocation(CCBot & bot, int baseID, const std::vector<Unit> & re
         int offsetX = 1;
         int offsetY = 1;
 #endif
-        
+
         // the position of the depot will be the closest spot we can build one from the resource center
         for (auto & tile : getClosestTiles())
         {

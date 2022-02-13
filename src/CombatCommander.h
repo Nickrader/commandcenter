@@ -12,7 +12,6 @@ class CombatCommander
 
     SquadData       m_squadData;
     std::vector<Unit>  m_combatUnits;
-    bool            m_initialized;
     bool            m_attackStarted;
 
     void            updateScoutDefenseSquad();

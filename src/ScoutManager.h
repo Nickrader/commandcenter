@@ -11,7 +11,6 @@ class ScoutManager
 
     Unit m_scoutUnit;
     std::string     m_scoutStatus;
-    int             m_numScouts;
     bool            m_scoutUnderAttack;
     CCHealth        m_previousScoutHP;
 

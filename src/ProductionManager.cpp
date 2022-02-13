@@ -7,9 +7,7 @@
 ProductionManager::ProductionManager(CCBot & bot)
     : m_bot             (bot)
     , m_buildingManager (bot)
-    , m_queue           (bot)
 {
-
 }
 
 void ProductionManager::setBuildOrder(const BuildOrder & buildOrder)
@@ -43,7 +41,7 @@ void ProductionManager::onFrame()
 }
 
 // on unit destroy
-void ProductionManager::onUnitDestroy(const Unit & unit)
+void ProductionManager::onUnitDestroy(const Unit & /* unit */)
 {
     // TODO: might have to re-do build order if a vital unit died
 }
@@ -143,7 +141,7 @@ void ProductionManager::fixBuildOrderDeadlock()
     if (m_bot.Data(currentItem.type).gasCost > 0 && m_bot.UnitInfo().getUnitTypeCount(Players::Self, refinery, false) == 0)
     {
         m_queue.queueAsHighestPriority(MetaType(refinery, m_bot), true);
-    } 
+    }
 
     // build supply if we need some
     auto supplyProvider = Util::GetSupplyProvider(m_bot.GetPlayerRace(Players::Self), m_bot);
@@ -318,7 +316,7 @@ bool ProductionManager::meetsReservedResources(const MetaType & type)
     int minerals = m_bot.Data(type).mineralCost;
     int gas = m_bot.Data(type).gasCost;
 
-    return (m_bot.Data(type).mineralCost <= getFreeMinerals()) && (m_bot.Data(type).gasCost <= getFreeGas());
+    return (minerals <= getFreeMinerals()) && (gas <= getFreeGas());
 }
 
 void ProductionManager::drawProductionInformation()

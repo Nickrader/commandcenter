@@ -1,17 +1,17 @@
 #include "Building.h"
 
-Building::Building() 
+Building::Building()
     : desiredPosition   (0,0)
     , finalPosition     (0,0)
     , position          (0,0)
     , type              ()
     , buildingUnit      ()
     , builderUnit       ()
-    , lastOrderFrame    (0)
     , status            (BuildingStatus::Unassigned)
+    , lastOrderFrame    (0)
     , buildCommandGiven (false)
-    , underConstruction (false) 
-{} 
+    , underConstruction (false)
+{}
 
 // constructor we use most often
 Building::Building(UnitType t, CCTilePosition desired)
@@ -21,18 +21,18 @@ Building::Building(UnitType t, CCTilePosition desired)
     , type              (t)
     , buildingUnit      ()
     , builderUnit       ()
-    , lastOrderFrame    (0)
     , status            (BuildingStatus::Unassigned)
+    , lastOrderFrame    (0)
     , buildCommandGiven (false)
-    , underConstruction (false) 
+    , underConstruction (false)
 {}
 
 // equals operator
-bool Building::operator == (const Building & b) 
+bool Building::operator == (const Building & b)
 {
     // buildings are equal if their worker unit and building unit are equal
-    return      (b.buildingUnit == buildingUnit) 
-             && (b.builderUnit  == builderUnit) 
+    return      (b.buildingUnit == buildingUnit)
+             && (b.builderUnit  == builderUnit)
              && (b.finalPosition.x == finalPosition.x)
              && (b.finalPosition.y == finalPosition.y);
 }

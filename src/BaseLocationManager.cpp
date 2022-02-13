@@ -8,19 +8,18 @@
 BaseLocationManager::BaseLocationManager(CCBot & bot)
     : m_bot(bot)
 {
-    
 }
 
 void BaseLocationManager::onStart()
 {
     m_tileBaseLocations = std::vector<std::vector<BaseLocation *>>(m_bot.Map().width(), std::vector<BaseLocation *>(m_bot.Map().height(), nullptr));
     m_playerStartingBaseLocations[Players::Self]  = nullptr;
-    m_playerStartingBaseLocations[Players::Enemy] = nullptr; 
-    
+    m_playerStartingBaseLocations[Players::Enemy] = nullptr;
+
     // a BaseLocation will be anything where there are minerals to mine
     // so we will first look over all minerals and cluster them based on some distance
     const CCPositionType clusterDistance = Util::TileToPosition(12);
-    
+
     // stores each cluster of resources based on some ground distance
     std::vector<std::vector<Unit>> resourceClusters;
     for (auto & mineral : m_bot.GetUnits())
@@ -41,7 +40,7 @@ void BaseLocationManager::onStart()
         for (auto & cluster : resourceClusters)
         {
             float dist = Util::Dist(mineral, Util::CalcCenter(cluster));
-            
+
             // quick initial air distance check to eliminate most resources
             if (dist < clusterDistance)
             {
@@ -311,8 +310,6 @@ CCTilePosition BaseLocationManager::getNextExpansion(int player) const
     const BaseLocation * closestBase = nullptr;
     int minDistance = std::numeric_limits<int>::max();
 
-    CCPosition homeTile = homeBase->getPosition();
-    
     for (auto & base : getBaseLocations())
     {
         // skip mineral only and starting locations (TODO: fix this)
@@ -323,7 +320,7 @@ CCTilePosition BaseLocationManager::getNextExpansion(int player) const
 
         // get the tile position of the base
         auto tile = base->getDepotPosition();
-        
+
         bool buildingInTheWay = false; // TODO: check if there are any units on the tile
 
         if (buildingInTheWay)

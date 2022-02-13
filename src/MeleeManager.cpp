@@ -7,7 +7,6 @@
 MeleeManager::MeleeManager(CCBot & bot)
     : MicroManager(bot)
 {
-
 }
 
 void MeleeManager::executeMicro(const std::vector<Unit> & targets)
@@ -104,7 +103,7 @@ Unit MeleeManager::getTarget(Unit meleeUnit, const std::vector<Unit> & targets)
 }
 
 // get the attack priority of a type in relation to a zergling
-int MeleeManager::getAttackPriority(Unit attacker, const Unit & unit)
+int MeleeManager::getAttackPriority(Unit /* attacker */, const Unit & unit)
 {
     BOT_ASSERT(unit.isValid(), "null unit in getAttackPriority");
 
@@ -121,7 +120,7 @@ int MeleeManager::getAttackPriority(Unit attacker, const Unit & unit)
     return 1;
 }
 
-bool MeleeManager::meleeUnitShouldRetreat(Unit meleeUnit, const std::vector<Unit> & targets)
+bool MeleeManager::meleeUnitShouldRetreat(Unit /* meleeUnit */, const std::vector<Unit> & /* targets */)
 {
     // TODO: should melee units ever retreat?
     return false;

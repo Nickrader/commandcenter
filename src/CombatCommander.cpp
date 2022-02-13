@@ -8,12 +8,10 @@ const size_t IdlePriority = 0;
 const size_t AttackPriority = 1;
 const size_t BaseDefensePriority = 2;
 const size_t ScoutDefensePriority = 3;
-const size_t DropPriority = 4;
 
 CombatCommander::CombatCommander(CCBot & bot)
     : m_bot(bot)
     , m_squadData(bot)
-    , m_initialized(false)
     , m_attackStarted(false)
 {
 
@@ -311,8 +309,6 @@ void CombatCommander::updateDefenseSquads()
 
 void CombatCommander::updateDefenseSquadUnits(Squad & defenseSquad, const size_t & flyingDefendersNeeded, const size_t & groundDefendersNeeded)
 {
-    auto & squadUnits = defenseSquad.getUnits();
-
     // TODO: right now this will assign arbitrary defenders, change this so that we make sure they can attack air/ground
 
     // if there's nothing left to defend, clear the squad

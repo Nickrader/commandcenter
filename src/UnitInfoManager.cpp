@@ -32,7 +32,7 @@ void UnitInfoManager::updateUnitInfo()
     for (auto & unit : m_bot.GetUnits())
     {
         updateUnit(unit);
-        m_units[unit.getPlayer()].push_back(unit);     
+        m_units[unit.getPlayer()].push_back(unit);
     }
 
     // remove bad enemy units
@@ -194,7 +194,7 @@ size_t UnitInfoManager::getUnitTypeCount(CCPlayer player, UnitType type, bool co
     return count;
 }
 
-void UnitInfoManager::drawUnitInformation(float x,float y) const
+void UnitInfoManager::drawUnitInformation(float /* x */, float /* y */) const
 {
     if (!m_bot.Config().DrawEnemyUnitInfo)
     {
@@ -247,21 +247,20 @@ bool UnitInfoManager::isValidUnit(const Unit & unit)
     {
         return false;
     }
-    
+
     // s'all good baby baby
     return true;
 }
 
 void UnitInfoManager::getNearbyForce(std::vector<UnitInfo> & unitInfo, CCPosition p, int player, float radius) const
 {
-    bool hasBunker = false;
     // for each unit we know about for that player
     for (const auto & kv : getUnitData(player).getUnitInfoMap())
     {
         const UnitInfo & ui(kv.second);
 
         // if it's a combat unit we care about
-        // and it's finished! 
+        // and it's finished!
         if (ui.type.isCombatUnit() && Util::Dist(ui.lastPosition,p) <= radius)
         {
             // add it to the vector

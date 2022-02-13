@@ -1,14 +1,12 @@
 #include "BuildOrderQueue.h"
 #include "CCBot.h"
 
-BuildOrderQueue::BuildOrderQueue(CCBot & bot)
-    : m_bot(bot)
+BuildOrderQueue::BuildOrderQueue()
+    : m_lowestPriority(0)
     , m_highestPriority(0)
-    , m_lowestPriority(0)
     , m_defaultPrioritySpacing(10)
     , m_numSkippedItems(0)
 {
-
 }
 
 void BuildOrderQueue::clearAll()

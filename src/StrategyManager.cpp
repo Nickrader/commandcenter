@@ -12,9 +12,9 @@ Strategy::Strategy()
 Strategy::Strategy(const std::string & name, const CCRace & race, const BuildOrder & buildOrder, const Condition & scoutCondition, const Condition & attackCondition)
     : m_name            (name)
     , m_race            (race)
-    , m_buildOrder      (buildOrder)
     , m_wins            (0)
     , m_losses          (0)
+    , m_buildOrder      (buildOrder)
     , m_scoutCondition  (scoutCondition)
     , m_attackCondition (attackCondition)
 {
@@ -93,7 +93,7 @@ const UnitPairVector StrategyManager::getZergBuildOrderGoal() const
 }
 
 
-void StrategyManager::onEnd(const bool isWinner)
+void StrategyManager::onEnd(const bool /* isWinner */)
 {
 
 }

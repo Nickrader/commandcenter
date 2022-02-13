@@ -3,8 +3,8 @@
 
 Unit::Unit()
     : m_bot(nullptr)
-    , m_unit(nullptr)
     , m_unitID(0)
+    , m_unit(nullptr)
 {
 
 }
@@ -12,11 +12,10 @@ Unit::Unit()
 #ifdef SC2API
 Unit::Unit(const sc2::Unit * unit, CCBot & bot)
     : m_bot(&bot)
-    , m_unit(unit)
     , m_unitID(unit->tag)
     , m_unitType(unit->unit_type, bot)
+    , m_unit(unit)
 {
-    
 }
 
 const sc2::Unit * Unit::getUnitPtr() const
@@ -33,11 +32,10 @@ const sc2::UnitTypeID & Unit::getAPIUnitType() const
 #else
 Unit::Unit(const BWAPI::Unit unit, CCBot & bot)
     : m_bot(&bot)
-    , m_unit(unit)
     , m_unitID(unit->getID())
     , m_unitType(unit->getType(), bot)
+    , m_unit(unit)
 {
-    
 }
 
 const BWAPI::Unit Unit::getUnitPtr() const

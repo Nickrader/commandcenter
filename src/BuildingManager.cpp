@@ -33,10 +33,10 @@ void BuildingManager::onFrame()
     }
 
     validateWorkersAndBuildings();          // check to see if assigned workers have died en route or while constructing
-    assignWorkersToUnassignedBuildings();   // assign workers to the unassigned buildings and label them 'planned'    
-    constructAssignedBuildings();           // for each planned building, if the worker isn't constructing, send the command    
-    checkForStartedConstruction();          // check to see if any buildings have started construction and update data structures    
-    checkForDeadTerranBuilders();           // if we are terran and a building is under construction without a worker, assign a new one    
+    assignWorkersToUnassignedBuildings();   // assign workers to the unassigned buildings and label them 'planned'
+    constructAssignedBuildings();           // for each planned building, if the worker isn't constructing, send the command
+    checkForStartedConstruction();          // check to see if any buildings have started construction and update data structures
+    checkForDeadTerranBuilders();           // if we are terran and a building is under construction without a worker, assign a new one
     checkForCompletedBuildings();           // check to see if any buildings have completed and update data structures
 
     drawBuildingInformation();
@@ -364,8 +364,6 @@ void BuildingManager::drawBuildingInformation()
     std::stringstream ss;
     ss << "Building Information " << m_buildings.size() << "\n\n\n";
 
-    int yspace = 0;
-
     for (const auto & b : m_buildings)
     {
         std::stringstream dss;
@@ -380,7 +378,7 @@ void BuildingManager::drawBuildingInformation()
             dss << "Building: " << b.buildingUnit.getID() << "\n" << b.buildingUnit.getBuildPercentage();
             m_bot.Map().drawText(b.buildingUnit.getPosition(), dss.str());
         }
-        
+
         if (b.status == BuildingStatus::Unassigned)
         {
             ss << "Unassigned " << b.type.getName() << "    " << getBuildingWorkerCode(b) << "\n";

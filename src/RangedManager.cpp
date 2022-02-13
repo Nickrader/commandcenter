@@ -104,7 +104,7 @@ Unit RangedManager::getTarget(const Unit & rangedUnit, const std::vector<Unit> &
 }
 
 // get the attack priority of a type in relation to a zergling
-int RangedManager::getAttackPriority(const Unit & attacker, const Unit & target)
+int RangedManager::getAttackPriority(const Unit & /* attacker */, const Unit & target)
 {
     BOT_ASSERT(target.isValid(), "null unit in getAttackPriority");
 

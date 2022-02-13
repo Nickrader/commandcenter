@@ -6,10 +6,8 @@
 
 Squad::Squad(CCBot & bot)
     : m_bot(bot)
-    , m_lastRetreatSwitch(0)
-    , m_lastRetreatSwitchVal(false)
-    , m_priority(0)
     , m_name("Default")
+    , m_priority(0)
     , m_meleeManager(bot)
     , m_rangedManager(bot)
 {
@@ -19,10 +17,8 @@ Squad::Squad(CCBot & bot)
 Squad::Squad(const std::string & name, const SquadOrder & order, size_t priority, CCBot & bot)
     : m_bot(bot)
     , m_name(name)
-    , m_order(order)
-    , m_lastRetreatSwitch(0)
-    , m_lastRetreatSwitchVal(false)
     , m_priority(priority)
+    , m_order(order)
     , m_meleeManager(bot)
     , m_rangedManager(bot)
 {
@@ -35,7 +31,7 @@ void Squad::onFrame()
 
     // determine whether or not we should regroup
     bool needToRegroup = needsToRegroup();
-    
+
     // if we do need to regroup, do it
     if (needToRegroup)
     {
@@ -86,7 +82,7 @@ void Squad::setAllUnits()
     {
         if (!unit.isValid()) { continue; }
         if (unit.isBeingConstructed()) { continue; }
-        
+
         goodUnits.insert(unit);
     }
 
@@ -100,7 +96,7 @@ void Squad::setNearEnemyUnits()
     {
         m_nearEnemy[unit] = isUnitNearEnemy(unit);
 
-        CCColor color = m_nearEnemy[unit] ? m_bot.Config().ColorUnitNearEnemy : m_bot.Config().ColorUnitNotNearEnemy;
+        //CCColor color = m_nearEnemy[unit] ? m_bot.Config().ColorUnitNearEnemy : m_bot.Config().ColorUnitNotNearEnemy;
         //m_bot.Map().drawCircleAroundUnit(unitTag, color);
     }
 }
