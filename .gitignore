@@ -1,5 +1,8 @@
 # Build routine
 build
 
+# Clangd cache
+.cache
+
 # IDEs
 .vscode/
