@@ -1,9 +1,6 @@
 # All the source files for the bot.
 file(GLOB BOT_SOURCES "*.cpp" "*.h" "*.hpp")
 
-# Enable compilation of the SC2 version of the bot.
-add_definitions(-DSC2API)
-
 include_directories(SYSTEM
     ${PROJECT_SOURCE_DIR}/cpp-sc2/include
     ${PROJECT_SOURCE_DIR}/cpp-sc2/contrib/protobuf/src

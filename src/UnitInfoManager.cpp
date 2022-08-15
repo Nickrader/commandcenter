@@ -64,7 +64,6 @@ const std::vector<Unit> & UnitInfoManager::getUnits(CCPlayer player) const
 
 void UnitInfoManager::drawSelectedUnitDebugInfo()
 {
-//#ifdef SC2API
 //    const sc2::Unit * unit;
 //    for (auto u : m_bot.Observation()->GetUnits()) 
 //    {
@@ -87,7 +86,7 @@ void UnitInfoManager::drawSelectedUnitDebugInfo()
 //        assert(0);
 //    }
 //    debug_txt += " (" + std::to_string(unit->unit_type) + ")";
-//        
+//
 //    sc2::AvailableAbilities available_abilities = query->GetAbilitiesForUnit(unit);
 //    if (available_abilities.abilities.size() < 1) 
 //    {
@@ -175,7 +174,6 @@ void UnitInfoManager::drawSelectedUnitDebugInfo()
 //        m_bot.Map().drawCircle(target, 1.25f, CCColor(0, 0, 255));
 //        m_bot.Map().drawText(p1, target_info, CCColor(255, 255, 0));
 //    }
-//#endif
 }
 
 // passing in a unit type of 0 returns a count of all units

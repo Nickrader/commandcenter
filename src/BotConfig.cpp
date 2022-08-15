@@ -96,16 +96,6 @@ void BotConfig::readConfigFile()
         JSONTools::ReadBool("ScoutHarassEnemy", micro, ScoutHarassEnemy);
     }
 
-    // Parse the BWAPI Options
-    if (j.count("BWAPI") && j["BWAPI"].is_object())
-    {
-        const json & bwapi = j["BWAPI"];
-        JSONTools::ReadInt("SetLocalSpeed", bwapi, SetLocalSpeed);
-        JSONTools::ReadInt("SetFrameSkip", bwapi, SetFrameSkip);
-        JSONTools::ReadBool("UserInput", bwapi, UserInput);
-        JSONTools::ReadBool("CompleteMapInformation", bwapi, CompleteMapInformation);
-    }
-
     // Parse the Macro Options
     if (j.count("Macro") && j["Macro"].is_object())
     {

@@ -8,6 +8,7 @@
 BaseLocationManager::BaseLocationManager(CCBot & bot)
     : m_bot(bot)
 {
+
 }
 
 void BaseLocationManager::onStart()
@@ -30,11 +31,6 @@ void BaseLocationManager::onStart()
         {
             continue;
         }
-
-#ifndef SC2API
-        // for BWAPI we have to eliminate minerals that have low resource counts
-        if (mineral.getUnitPtr()->getResources() < 100) { continue; }
-#endif
 
         bool foundCluster = false;
         for (auto & cluster : resourceClusters)
@@ -128,7 +124,7 @@ void BaseLocationManager::onStart()
                 if (baseLocation.containsPosition(pos))
                 {
                     m_tileBaseLocations[x][y] = &baseLocation;
-                    
+
                     break;
                 }
             }
@@ -141,7 +137,7 @@ void BaseLocationManager::onStart()
 }
 
 void BaseLocationManager::onFrame()
-{   
+{
     drawBaseLocations();
 
     // reset the player occupation information for each location
@@ -257,11 +253,7 @@ BaseLocation * BaseLocationManager::getBaseLocation(const CCPosition & pos) cons
 {
     if (!m_bot.Map().isValidPosition(pos)) { return nullptr; }
 
-#ifdef SC2API
     return m_tileBaseLocations[(int)pos.x][(int)pos.y];
-#else
-    return m_tileBaseLocations[pos.x / 32][pos.y / 32];
-#endif
 }
 
 void BaseLocationManager::drawBaseLocations()
@@ -309,6 +301,8 @@ CCTilePosition BaseLocationManager::getNextExpansion(int player) const
     const BaseLocation * homeBase = getPlayerStartingBaseLocation(player);
     const BaseLocation * closestBase = nullptr;
     int minDistance = std::numeric_limits<int>::max();
+
+    // CCPosition homeTile = homeBase->getPosition();
 
     for (auto & base : getBaseLocations())
     {

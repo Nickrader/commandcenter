@@ -244,7 +244,7 @@ CCTilePosition BuildingPlacer::getRefineryPosition()
         }
 
         CCPosition geyserPos(unit.getPosition());
-        
+
         // can't build a refinery on top of another
         if (!m_bot.Map().canBuildTypeAtPosition((int)geyserPos.x, (int)geyserPos.y, refinery))
         {
@@ -273,11 +273,7 @@ CCTilePosition BuildingPlacer::getRefineryPosition()
         }
     }
 
-#ifdef SC2API
     return CCTilePosition((int)closestGeyser.x, (int)closestGeyser.y);
-#else
-    return CCTilePosition(closestGeyser);
-#endif
 }
 
 bool BuildingPlacer::isReserved(int x, int y) const

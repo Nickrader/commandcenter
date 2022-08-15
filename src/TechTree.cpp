@@ -17,8 +17,6 @@ void TechTree::onStart()
     outputJSON("TechTree.json");
 }
 
-
-#ifdef SC2API
 void TechTree::initUnitTypeData()
 {
     m_unitTypeData[UnitType(0, m_bot)] = TypeData();
@@ -239,7 +237,7 @@ void TechTree::initUpgradeData()
 
     // Zerg Upgrades
     m_upgradeData[sc2::UPGRADE_ID::BURROW] =                            { sc2::Race::Zerg, 100, 100, 0, 1600, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_BURROW, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_HATCHERY, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {}, {} };
-    m_upgradeData[sc2::UPGRADE_ID::CENTRIFICALHOOKS] =                  { sc2::Race::Zerg, 150, 150, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_CENTRIFUGALHOOKS, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_BANELINGNEST, m_bot) }, {}, {} }; 
+    m_upgradeData[sc2::UPGRADE_ID::CENTRIFICALHOOKS] =                  { sc2::Race::Zerg, 150, 150, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_CENTRIFUGALHOOKS, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_BANELINGNEST, m_bot) }, {}, {} };
     m_upgradeData[sc2::UPGRADE_ID::CHITINOUSPLATING] =                  { sc2::Race::Zerg, 150, 150, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_CHITINOUSPLATING, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_ULTRALISKCAVERN, m_bot) }, {}, {} };
     m_upgradeData[sc2::UPGRADE_ID::EVOLVEGROOVEDSPINES] =               { sc2::Race::Zerg, 150, 150, 0, 1760, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_GROOVEDSPINES, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_HYDRALISKDEN, m_bot) }, {}, {} };
     m_upgradeData[sc2::UPGRADE_ID::EVOLVEMUSCULARAUGMENTS] =            { sc2::Race::Zerg, 150, 150, 0, 1600, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_MUSCULARAUGMENTS, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_HYDRALISKDEN, m_bot) }, {}, {} };
@@ -266,49 +264,6 @@ void TechTree::initUpgradeData()
     m_upgradeData[sc2::UPGRADE_ID::ZERGMISSILEWEAPONSLEVEL2] =          { sc2::Race::Zerg, 150, 150, 0, 3040, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_ZERGMISSILEWEAPONSLEVEL2, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_EVOLUTIONCHAMBER, m_bot) }, { UnitType(sc2::UNIT_TYPEID::ZERG_LAIR, m_bot), UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {sc2::UPGRADE_ID::ZERGMISSILEWEAPONSLEVEL1} };
     m_upgradeData[sc2::UPGRADE_ID::ZERGMISSILEWEAPONSLEVEL3] =          { sc2::Race::Zerg, 200, 200, 0, 3520, false, false, false, false, false, false, false, sc2::ABILITY_ID::RESEARCH_ZERGMISSILEWEAPONSLEVEL3, 0, { UnitType(sc2::UNIT_TYPEID::ZERG_EVOLUTIONCHAMBER, m_bot) }, { UnitType(sc2::UNIT_TYPEID::ZERG_HIVE, m_bot) }, {sc2::UPGRADE_ID::ZERGMISSILEWEAPONSLEVEL2} };
 }
-#else
-void TechTree::initUpgradeData()
-{
-    
-    m_unitTypeData[UnitType(BWAPI::UnitTypes::None, m_bot)] = TypeData();
-
-    for (auto & type : BWAPI::UnitTypes::allUnitTypes())
-    {
-        TypeData typeData;
-
-        typeData.race = type.getRace();
-        typeData.mineralCost = type.mineralPrice();
-        typeData.gasCost = type.gasPrice();
-        typeData.supplyCost = type.supplyRequired();
-        typeData.buildTime = type.buildTime();
-        typeData.isUnit = true;
-        typeData.isBuilding = type.isBuilding();
-        typeData.isWorker = type.isWorker();
-        typeData.isRefinery = type.isRefinery();
-        typeData.isSupplyProvider = type.supplyProvided() > 0 && !type.isResourceDepot();
-        typeData.isResourceDepot = type.isResourceDepot();
-        typeData.isAddon = type.isAddon();
-
-        std::vector<UnitType> whatBuilds;
-        whatBuilds.push_back(UnitType(type.whatBuilds().first, m_bot));
-        typeData.whatBuilds = whatBuilds;
-
-        std::vector<UnitType> requiredUnits;
-        for (auto & req : type.requiredUnits())
-        {
-            requiredUnits.push_back(UnitType(req.first, m_bot));
-        }
-        typeData.requiredUnits = requiredUnits;
-
-        m_unitTypeData[UnitType(type, m_bot)] = typeData;
-    }
-}
-
-void TechTree::initUnitTypeData()
-{
-
-}
-#endif
 
 const TypeData & TechTree::getData(const UnitType & type) const
 {
@@ -350,60 +305,56 @@ const TypeData & TechTree::getData(const MetaType & type) const
 
 void TechTree::outputJSON(const std::string & /* filename */) const
 {
-#ifdef SC2APIXXX
-    std::ofstream out(filename);
-    out << "{\n";
-    std::string q = "\"";
-    std::string qcs = "\", ";
+    // std::ofstream out(filename);
+    // out << "{\n";
+    // std::string q = "\"";
+    // std::string qcs = "\", ";
 
-    std::vector<std::pair<int, UnitTypeData>> allData;
-    for (auto & kv : m_unitTypeData) { allData.push_back({kv.first, kv.second}); }
-    for (auto & kv : m_upgradeData) { allData.push_back({kv.first, kv.second}); }
+    // std::vector<std::pair<int, sc2::UnitTypeData>> allData;
+    // for (auto & kv : m_unitTypeData) { allData.push_back({kv.first, kv.second}); }
+    // for (auto & kv : m_upgradeData) { allData.push_back({kv.first, kv.second}); }
 
-    for (auto & kv : allData)
-    {
-        std::string name( kv.second.isUnit ? m_bot.Observation()->GetUnitTypeData()[kv.first].name : m_bot.Observation()->GetUpgradeData()[kv.first].name);
-        if (name.find("Flying") != std::string::npos) { continue; }
-        if (name.find("Lowered") != std::string::npos) { continue; }
+    // for (auto & kv : allData)
+    // {
+    //     std::string name( kv.second.isUnit ? m_bot.Observation()->GetUnitTypeData()[kv.first].name : m_bot.Observation()->GetUpgradeData()[kv.first].name);
+    //     if (name.find("Flying") != std::string::npos) { continue; }
+    //     if (name.find("Lowered") != std::string::npos) { continue; }
 
-        auto & data = kv.second;
+    //     auto & data = kv.second;
 
-        out << "    [";
-        out << q << name << qcs;
-        out << q << Util::GetStringFromRace(data.race) << qcs;
-        out << data.mineralCost << ", " << data.gasCost << ", " << data.supplyCost << ", " << data.buildTime << ", ";
-        out << data.isUnit << ", " << data.isBuilding << ", " << data.isWorker<< ", " << data.isSupplyDepot << ", " << data.isTownHall << ", " << data.isAddon << ", ";
+    //     out << "    [";
+    //     out << q << name << qcs;
+    //     out << q << Util::GetStringFromRace(data.race) << qcs;
+    //     out << data.mineralCost << ", " << data.gasCost << ", " << data.supplyCost << ", " << data.buildTime << ", ";
+    //     out << data.isUnit << ", " << data.isBuilding << ", " << data.isWorker<< ", " << data.isSupplyDepot << ", " << data.isTownHall << ", " << data.isAddon << ", ";
 
-        out << "[";
-        for (size_t i(0); i < data.whatBuilds.size(); ++i) 
-        { 
-            out << q << m_bot.Observation()->GetUnitTypeData()[data.whatBuilds[i].getAPIUnitType()].name << q;
-            if (i < data.whatBuilds.size() - 1) { out << ", "; }
-        }
-        out << "], ";
+    //     out << "[";
+    //     for (size_t i(0); i < data.whatBuilds.size(); ++i)
+    //     {
+    //         out << q << m_bot.Observation()->GetUnitTypeData()[data.whatBuilds[i].getAPIUnitType()].name << q;
+    //         if (i < data.whatBuilds.size() - 1) { out << ", "; }
+    //     }
+    //     out << "], ";
 
-        out << "[";
-        for (size_t i(0); i < data.requiredUnits.size(); ++i)
-        {
-            out << q << m_bot.Observation()->GetUnitTypeData()[data.requiredUnits[i].getAPIUnitType()].name << q;
-            if (i < data.requiredUnits.size() - 1) { out << ", "; }
-        }
-        out << "], ";
+    //     out << "[";
+    //     for (size_t i(0); i < data.requiredUnits.size(); ++i)
+    //     {
+    //         out << q << m_bot.Observation()->GetUnitTypeData()[data.requiredUnits[i].getAPIUnitType()].name << q;
+    //         if (i < data.requiredUnits.size() - 1) { out << ", "; }
+    //     }
+    //     out << "], ";
 
-        out << "[";
-        for (size_t i(0); i < data.requiredUpgrades.size(); ++i)
-        {
-            out << q << m_bot.Observation()->GetUpgradeData()[data.requiredUpgrades[i]].name << q;
-            if (i < data.requiredUpgrades.size() - 1) { out << ", "; }
-        }
-        out << "] ";
+    //     out << "[";
+    //     for (size_t i(0); i < data.requiredUpgrades.size(); ++i)
+    //     {
+    //         out << q << m_bot.Observation()->GetUpgradeData()[data.requiredUpgrades[i]].name << q;
+    //         if (i < data.requiredUpgrades.size() - 1) { out << ", "; }
+    //     }
+    //     out << "] ";
 
-        out << "],\n";
-    }
+    //     out << "],\n";
+    // }
 
-    out << "}";
-    out.close();
-#else
-
-#endif
+    // out << "}";
+    // out.close();
 }

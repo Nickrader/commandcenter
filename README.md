@@ -1,17 +1,17 @@
-# CommandCenter: AI Bot for Broodwar and Starcraft II
+# CommandCenter: AI Bot for Starcraft II
 
 [![Build](https://github.com/cpp-sc2/commandcenter/actions/workflows/ci.yml/badge.svg)](https://github.com/cpp-sc2/commandcenter/actions/workflows/ci.yml)
 
-CommandCenter is a StarCraft AI bot that can play both StarCraft: Broodwar and StarCraft 2. This fork is focused on the StarCraft 2 part of the bot.
+The original CommandCenter is a StarCraft AI bot that can play both StarCraft: Broodwar and StarCraft 2. This fork is focused on the StarCraft 2 part of the bot.
 
 ![CommandCenter Screenshot](https://i.imgur.com/SbTymsO.jpg)
 
-CommandCenter is written in C++ using [BWAPI](https://github.com/bwapi/bwapi) and Blizzard's [StarCraft II AI API](https://github.com/Blizzard/s2client-api). It provides many wrapper functions around both APIs that allow it to perform the same functionality in both games via the same source code. It is written by [David Churchill](http://www.cs.mun.ca/~dchurchill/), Assistant Professor of [Computer Science](https://www.cs.mun.ca/) at Memorial University, and organizer of the [AIIDE StarCraft AI Competition](http://www.cs.mun.ca/~dchurchill/starcraftaicomp/).
+CommandCenter is written in C++ using fork of Blizzard's [StarCraft II AI API](https://github.com/cpp-sc2/cpp-sc2). It is written by [David Churchill](http://www.cs.mun.ca/~dchurchill/), Assistant Professor of [Computer Science](https://www.cs.mun.ca/) at Memorial University, and organizer of the [AIIDE StarCraft AI Competition](http://www.cs.mun.ca/~dchurchill/starcraftaicomp/).
 
 CommandCenter is based on the architecture of [UAlbertaBot](https://github.com/davechurchill/ualbertabot/wiki), and is intended to be an easy to use architecture for you to quickly modify, play with, and build your own bot. The bot itself does not contain much in the way of hard-coded strategy or tactics, however it provides a good starting point for you to implement your own strategies for any race. 
 
-CommandCenter currently provides the following features:
-* Plays both Starcraft games with the same source code
+This CommandCenter fork currently provides the following features:
+* Plays only Starcraft II
 * Plays all 3 races with generalized micro controllers for combat units
 * Performs online map analysis, extracting information such as base locations and expansions
 * Keeps track of all previously seen enemy units and their last known locations on the map
