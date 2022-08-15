@@ -6,3 +6,9 @@ build
 
 # IDEs
 .vscode/
+
+# Clangd cache
+.cache/
+
+# OS X internals
+.DS_Store
