@@ -1,36 +1,21 @@
 # All the source files for the bot.
 file(GLOB BOT_SOURCES "*.cpp" "*.h" "*.hpp")
 
-include_directories(SYSTEM
-    ${PROJECT_SOURCE_DIR}/cpp-sc2/include
-    ${PROJECT_SOURCE_DIR}/cpp-sc2/contrib/protobuf/src
-    ${PROJECT_BINARY_DIR}/cpp-sc2/generated
-)
-
-link_directories(${PROJECT_BINARY_DIR}/cpp-sc2/bin)
+add_executable(CommandCenter ${BOT_SOURCES})
 
 # Show more warnings at compiletime.
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX-")
+    target_compile_options(CommandCenter PRIVATE /W4 /EHsc)
 else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    target_compile_options(CommandCenter PRIVATE -Wall -Wextra)
 endif ()
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
-
-# Create the executable.
-add_executable(CommandCenter ${BOT_SOURCES})
-target_link_libraries(CommandCenter sc2api sc2lib sc2utils sc2protocol civetweb libprotobuf)
+target_link_libraries(CommandCenter PRIVATE cpp_sc2)
 
 if (MINGW)
-    target_link_libraries(CommandCenter ssp)
-endif()
-
-if (APPLE)
-    target_link_libraries(CommandCenter "-framework Carbon")
-endif ()
-
-# Linux specific.
-if (UNIX AND NOT APPLE)
-    target_link_libraries(CommandCenter pthread dl)
+    target_link_libraries(CommandCenter PRIVATE ssp)
+elseif (APPLE)
+    target_link_libraries(CommandCenter PRIVATE "-framework Carbon")
+elseif (UNIX AND NOT APPLE) # Building on Linux
+    target_link_libraries(CommandCenter PRIVATE pthread dl)
 endif ()
