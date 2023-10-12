@@ -20,7 +20,8 @@ endif ()
 
 list(APPEND CMAKE_MODULE_PATH thirdparty/cmake)
 
-# cpp-sc2 dependency
+# Dependencies
 include(cpp_sc2)
+include_directories(thirdparty)
 
 add_subdirectory(src)
