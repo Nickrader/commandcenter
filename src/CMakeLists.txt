@@ -1,36 +1,94 @@
-# All the source files for the bot.
-file(GLOB BOT_SOURCES "*.cpp" "*.h" "*.hpp")
-
-include_directories(SYSTEM
-    ${PROJECT_SOURCE_DIR}/cpp-sc2/include
-    ${PROJECT_SOURCE_DIR}/cpp-sc2/contrib/protobuf/src
-    ${PROJECT_BINARY_DIR}/cpp-sc2/generated
+set(BOT_SOURCES
+    BaseLocation.cpp
+    BaseLocation.h
+    BaseLocationManager.cpp
+    BaseLocationManager.h
+    BotAssert.cpp
+    BotAssert.h
+    BotConfig.cpp
+    BotConfig.h
+    BuildOrder.cpp
+    BuildOrder.h
+    BuildOrderQueue.cpp
+    BuildOrderQueue.h
+    Building.cpp
+    Building.h
+    BuildingData.cpp
+    BuildingData.h
+    BuildingManager.cpp
+    BuildingManager.h
+    BuildingPlacer.cpp
+    BuildingPlacer.h
+    CCBot.cpp
+    CCBot.h
+    CombatCommander.cpp
+    CombatCommander.h
+    Common.h
+    Condition.cpp
+    Condition.h
+    DistanceMap.cpp
+    DistanceMap.h
+    GameCommander.cpp
+    GameCommander.h
+    JSONTools.cpp
+    JSONTools.h
+    MapTools.cpp
+    MapTools.h
+    MeleeManager.cpp
+    MeleeManager.h
+    MetaType.cpp
+    MetaType.h
+    MicroManager.cpp
+    MicroManager.h
+    ProductionManager.cpp
+    ProductionManager.h
+    RangedManager.cpp
+    RangedManager.h
+    ScoutManager.cpp
+    ScoutManager.h
+    Squad.cpp
+    Squad.h
+    SquadData.cpp
+    SquadData.h
+    SquadOrder.cpp
+    SquadOrder.h
+    StrategyManager.cpp
+    StrategyManager.h
+    TechTree.cpp
+    TechTree.h
+    Timer.hpp
+    Unit.cpp
+    Unit.h
+    UnitData.cpp
+    UnitData.h
+    UnitInfoManager.cpp
+    UnitInfoManager.h
+    UnitType.cpp
+    UnitType.h
+    Util.cpp
+    Util.h
+    WorkerData.cpp
+    WorkerData.h
+    WorkerManager.cpp
+    WorkerManager.h
+    main.cpp
 )
 
-link_directories(${PROJECT_BINARY_DIR}/cpp-sc2/bin)
+add_executable(CommandCenter ${BOT_SOURCES})
 
 # Show more warnings at compiletime.
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /WX-")
+    target_compile_options(CommandCenter PRIVATE /W4 /EHsc)
 else ()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    target_compile_options(CommandCenter PRIVATE -Wall -Wextra)
 endif ()
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
-
-# Create the executable.
-add_executable(CommandCenter ${BOT_SOURCES})
-target_link_libraries(CommandCenter sc2api sc2lib sc2utils sc2protocol civetweb libprotobuf)
+target_link_libraries(CommandCenter PRIVATE cpp_sc2)
 
 if (MINGW)
-    target_link_libraries(CommandCenter ssp)
-endif()
-
-if (APPLE)
-    target_link_libraries(CommandCenter "-framework Carbon")
-endif ()
-
-# Linux specific.
-if (UNIX AND NOT APPLE)
-    target_link_libraries(CommandCenter pthread dl)
+    target_link_libraries(CommandCenter PRIVATE ssp)
+elseif (APPLE)
+    target_link_libraries(CommandCenter PRIVATE "-framework Carbon")
+elseif (UNIX AND NOT APPLE) # Building on Linux
+    target_link_libraries(CommandCenter PRIVATE pthread dl)
 endif ()

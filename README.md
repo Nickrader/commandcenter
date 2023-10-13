@@ -41,24 +41,19 @@ By default when you run CommandCenter.exe, it will play as Random race vs. a Ran
 
 If the bot crashes or does other nasty things, please bear with me while I make it more stable :)
 
-# Developer Install / Compile Instructions (Windows)
+# Developer Install / Compile Instructions
+## Windows
 * Download and install [Visual Studio 2017 or newer](https://www.visualstudio.com/downloads/)
 * Install [CMake](https://cmake.org/download/) and do
 
 ```bat
 :: Get the project.
-$ git clone --recursive git@github.com:cpp-sc2/commandcenter.git
+$ git clone git@github.com:cpp-sc2/commandcenter.git
 $ cd commandcenter
 
-:: Create build directory.
-$ mkdir build
-$ cd build
-
 :: Create Visual Studio project files.
-:: For Visual Studio 2019.
-$ cmake ../ -G "Visual Studio 16 2019"
-:: For Visual Studio 2017.
-$ cmake ../ -G "Visual Studio 15 2017 Win64"
+:: For Visual Studio 2022.
+$ cmake -B build -G "Visual Studio 17 2022"
 
 :: Build the project using Visual Studio.
 :: The binary "CommandCenter_API.exe" should appear in the build/bin/ directory
@@ -66,31 +61,45 @@ $ start CommandCenter.sln
 
 :: Launch the bot with the specified path to a SC2 map.
 :: Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the .exe to run properly
-$ bin\Debug\CommandCenter.exe Ladder2019Season3/AcropolisLE.SC2Map
+$ build\bin\Debug\CommandCenter.exe Ladder2019Season3/AcropolisLE.SC2Map
 ```
 
-# Developer Install / Compile Instructions (Linux and OS X)
-* OS X: Download and install XCode and Xcode command-line tools.
-* Linux: Install 'gcc-c++' with C++14 support and the 'make' utility.
-* Install [CMake](https://cmake.org/download/) and do
+## OS X
+* Download and install XCode and XCode command-line tools.
+* Install [CMake](https://cmake.org/download/).
 
 ```bash
 # Get the project.
-$ git clone --recursive git@github.com:cpp-sc2/commandcenter.git && cd commandcenter
+$ git clone git@github.com:cpp-sc2/commandcenter.git && cd commandcenter
 
-# Create build directory.
-$ mkdir build && cd build
-
-# Generate a Makefile.
-# Use 'cmake -DCMAKE_BUILD_TYPE=Debug ../' if debuginfo is needed
-$ cmake ../
+# Generate CMake build tree
+$ cmake -B build -G Xcode
 
 # Build the project.
-$ VERBOSE=1 cmake --build . --parallel
+$ cmake --build build --parallel --verbose
 
 # Launch the bot with the specified path to a SC2 map.
 # Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the executable to run properly
-$ bin/Debug/CommandCenter Ladder2019Season3/AcropolisLE.SC2Map
+$ build/bin/CommandCenter Ladder2019Season3/AcropolisLE.SC2Map
+```
+
+## Linux
+* Install 'gcc-c++' with C++14 support and the 'make' utility.
+* Install [CMake](https://cmake.org/download/).
+
+```bash
+# Get the project.
+$ git clone git@github.com:cpp-sc2/commandcenter.git && cd commandcenter
+
+# Generate CMake build tree
+$ cmake -B build
+
+# Build the project.
+$ cmake --build build --parallel --verbose
+
+# Launch the bot with the specified path to a SC2 map.
+# Warning: The CommandCenter/bin/BotConfig.txt file must be in the same directory as the executable to run properly
+$ build/bin/CommandCenter Ladder2019Season3/AcropolisLE.SC2Map
 ```
 
 # Bot Development
