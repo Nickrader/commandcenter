@@ -79,6 +79,17 @@ add_executable(CommandCenter ${BOT_SOURCES})
 # Show more warnings at compiletime.
 if (MSVC)
     target_compile_options(CommandCenter PRIVATE /W4 /EHsc)
+
+    set_target_properties( CommandCenter PROPERTIES
+        VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:CommandCenter>"
+        VS_DEBUGGER_COMMAND "$<TARGET_FILE:CommandCenter>"
+        VS_DEBUGGER_COMMAND_ARGUMENTS "Ladder2019Season3/AcropolisLE.SC2Map"
+    )
+    
+    # Get Readme and CMakelists to show up in Solution Explorer
+    set(OTHER ${PROJECT_SOURCE_DIR}/CMakelists.txt ${PROJECT_SOURCE_DIR}/src/CMakelists.txt ${PROJECT_SOURCE_DIR}/README.md)
+    source_group("Other" FILES ${OTHER})
+
 else ()
     target_compile_options(CommandCenter PRIVATE -Wall -Wextra)
 endif ()

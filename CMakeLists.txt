@@ -16,6 +16,14 @@ if (MSVC)
 
     # Use statically linked runtime
     set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded$<$<CONFIG:Debug>:Debug>)
+
+    # Make directory that 'Build' in Visual Studio would, so we can move BotConfig.txt
+    file(MAKE_DIRECTORY ${CMAKE_SOURCE_DIR}/build/bin/Debug)
+    file(COPY_FILE ${CMAKE_SOURCE_DIR}/bin/BotConfig.txt ${CMAKE_SOURCE_DIR}/build/bin/Debug/BotConfig.txt)
+
+    # Set startup project so we don't have to in IDE
+    set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT CommandCenter)
+
 endif ()
 
 list(APPEND CMAKE_MODULE_PATH thirdparty/cmake)
