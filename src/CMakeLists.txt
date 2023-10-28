@@ -79,6 +79,12 @@ add_executable(CommandCenter ${BOT_SOURCES})
 # Show more warnings at compiletime.
 if (MSVC)
     target_compile_options(CommandCenter PRIVATE /W4 /EHsc)
+
+    set_target_properties(CommandCenter PROPERTIES
+        VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:CommandCenter>"
+        VS_DEBUGGER_COMMAND "$<TARGET_FILE:CommandCenter>"
+        VS_DEBUGGER_COMMAND_ARGUMENTS "Ladder2019Season3/AcropolisLE.SC2Map"
+    )
 else ()
     target_compile_options(CommandCenter PRIVATE -Wall -Wextra)
 endif ()
