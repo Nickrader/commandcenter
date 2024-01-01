@@ -84,7 +84,7 @@ $ build/bin/CommandCenter Ladder2019Season3/AcropolisLE.SC2Map
 ```
 
 ## Linux
-* Install 'gcc-c++' with C++14 support and the 'make' utility.
+* Install 'gcc-c++' with C++17 support and the 'make' utility.
 * Install [CMake](https://cmake.org/download/).
 
 ```bash
