@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 project(CommandCenter)
+set(cmake_export_compile_commands = 1)
 
 include(FetchContent)
 

@@ -11,4 +11,6 @@ build
 .cache/
 
 # OS X internals
-.DS_Store
+.DS_Store# emacs temp files
+*.*~
+

@@ -20,6 +20,9 @@ int main(int argc, char* argv[])
     {
         std::cerr << "Config file could not be found, and is required for starting the bot\n";
         std::cerr << "Please read the instructions and try again\n";
+
+	std::cerr << "Error could also be caused by not being in directory of bot_executable, when invoking executable.  Try changing directory before launching bot.\n";
+	
         exit(-1);
     }
 
@@ -63,6 +66,18 @@ int main(int argc, char* argv[])
     // WARNING: Bot logic has not been thorougly tested on step sizes > 1
     //          Setting this = N means the bot's onFrame gets called once every N frames
     //          The bot may crash or do unexpected things if its logic is not called every frame
+    const std::string wine = "/home/ransak/.local/share/lutris/runners/wine/wine-ge-8-26-x86_64/bin/wine64";
+    //    const std::string wine = "/usr/bin/wine"; // 
+
+    // {"start","/d","/path/to/Support64/","/unix","/path/to/SC2Switcher"}
+    const std::vector<std::string> runner = {
+        "start", "/d", "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/", "/unix",
+        "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/SC2Switcher_x64.exe"};
+    coordinator.SetLutris(wine, runner);
+
+
+    //    const std::string SC2SWITCHER = "/home/ransak/Games/battlenet/drive_c/Program Files (x86)/StarCraft II/Support64/SC2Switcher_x64.exe";
+    // coordinator.SetProcessPath(SC2SWITCHER);
     coordinator.SetStepSize(stepSize);
     coordinator.SetRealtime(false);
 
